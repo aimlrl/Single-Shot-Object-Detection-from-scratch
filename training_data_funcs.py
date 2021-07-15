@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 import numpy as np
 import csv
 import matplotlib.pyplot as plt
 from random import randint
+import object_detection_config
+from matplotlib.patches import Rectangle
 
 
-# In[3]:
+# In[2]:
 
 
 def training_data_validation_conversion(file_path):
@@ -49,6 +51,7 @@ def training_data_validation_conversion(file_path):
     file_names = training_data[:,0]
     training_data_dict = dict()
     unique_file_names = np.unique(file_names)
+    total_unique_classes = np.unique(training_data[:,-1]).astype(int).tolist()
     
     for image_file in unique_file_names:
         training_data_dict[image_file] = list()
@@ -80,13 +83,13 @@ def training_data_validation_conversion(file_path):
         if len(training_data_dict[training_example[0]]) == 0:
             del training_data_dict[training_example[0]]
             
-    return training_data_dict
+    return training_data_dict,total_unique_classes
 
 
-# In[5]:
+# In[3]:
 
 
-def determine_anchor_box_color(index):
+def determine_anchor_box_color(index=None):
     """This function determines the color of the bounding box for a specific category object.
     
     Parameters:
@@ -101,8 +104,35 @@ def determine_anchor_box_color(index):
     return colors[index % len(colors)]
 
 
-# In[ ]:
+# In[4]:
 
 
+def show_colored_pred_bboxes(frame, pred_info, ax=None):
+    """This function draws a bounding box of a specific color based on the predicted category of an object 
+    given it's predicted box coords.
+    """
+    
+    if ax is None:
+        fig, ax = plt.subplots(1)
+        ax.imshow(frame)
+        
+    for pred_off_cls in pred_info:
+        w = pred_off_cls[1] - pred_off_cls[0]
+        h = pred_off_cls[3] - pred_off_cls[2]
+        x = pred_off_cls[0]
+        y = pred_off_cls[2]
+        pred_object_index = int(pred_off_cls[4])
+        color = determine_anchor_box_color(pred_object_index)
+        rect_to_draw = Rectangle((x, y),w,h,linewidth=2,edgecolor=color,facecolor='none')
+        ax.add_patch(rect_to_draw)
+    plt.show()
 
+
+# In[5]:
+
+
+def index2class(index=0):
+    """Convert index (int) to class name (string)"""
+    classes = object_detection_config.params['classes']
+    return classes[index]
 
