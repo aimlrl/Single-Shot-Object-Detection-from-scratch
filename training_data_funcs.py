@@ -136,3 +136,12 @@ def index2class(index=0):
     classes = object_detection_config.params['classes']
     return classes[index]
 
+
+# In[6]:
+
+
+def class2index(category="Background"):
+    """Convert class name (string) to index (int)"""
+    classes = object_detection_config.params['classes']
+    return classes.index(category)
+

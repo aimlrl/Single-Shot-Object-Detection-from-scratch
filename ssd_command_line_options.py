@@ -72,16 +72,16 @@ def our_ssd_cnn_parser():
     parser.add_argument("--summary",default=False,action='store_true',help=desc)
     
     desc = "Use categorical focal and smooth L1 loss functions"
-    parser.add_argument("--improved-loss",default=False,action='store_true',help=desc)
+    parser.add_argument("--improved_loss",default=False,action='store_true',help=desc)
     
     desc = "Use smooth L1 loss function"
-    parser.add_argument("--smooth-l1",default=False,action='store_true',help=desc)
+    parser.add_argument("--smooth_l1",default=False,action='store_true',help=desc)
     
     desc = "Use normalized predictions"
     parser.add_argument("--is_normalize",default=False,action='store_true',help=desc)
     
     desc = "Directory for saving files"
-    parser.add_argument("--save-dir",default="weights",help=desc)
+    parser.add_argument("--save_dir",default="weights",help=desc)
     
     desc = "Dataset used to train the SSD CNN"
     parser.add_argument("--dataset",default="ExDark",help=desc)
@@ -101,10 +101,10 @@ def our_ssd_cnn_parser():
     parser.add_argument("--data_path",default="dataset/ExDark",help=desc)
     
     desc = "Train labels csv file name"
-    parser.add_argument("--train-labels",default="training_data_gt_labels.csv",help=desc)
+    parser.add_argument("--train_labels",default="training_data_gt_labels.csv",help=desc)
     
     desc = "Test labels csv file name"
-    parser.add_argument("--test-labels",default="testing_data_gt_labels.csv",help=desc)
+    parser.add_argument("--test_labels",default="testing_data_gt_labels.csv",help=desc)
 
     # configurations for evaluation of a trained model
     desc = "Load h5 model trained weights"
@@ -114,7 +114,7 @@ def our_ssd_cnn_parser():
     parser.add_argument("--evaluate",default=False,action='store_true',help=desc)
     
     desc = "Image for evaluation"
-    parser.add_argument("--image-file",default=None,help=desc)
+    parser.add_argument("--image_file",default=None,help=desc)
     
     desc = "Class posterior probability threshold while applying NMS over the predictions of a network"
     parser.add_argument("--posterior_prob_threshold",default=0.5,type=float,help=desc)
